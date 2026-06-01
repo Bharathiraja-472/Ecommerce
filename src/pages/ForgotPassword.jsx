@@ -19,10 +19,8 @@ export default function ForgotPassword() {
   return (
     <div className="min-h-screen pt-24 pb-12 flex flex-col justify-center items-center px-4 bg-luxury-sand/30 font-sans">
       
-      {/* Container Box */}
       <div className="w-full max-w-md bg-white border border-luxury-border p-8 sm:p-10 shadow-sm animate-scale-up">
         
-        {/* Branding Signpost */}
         <div className="text-center space-y-2 mb-8">
           <Link to="/" className="font-serif text-3xl tracking-[0.2em] uppercase text-luxury-black">
             Velvora
