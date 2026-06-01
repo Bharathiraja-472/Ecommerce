@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowDown, Mail, Globe, Sparkles } from 'lucide-react';
+import { Mail } from "lucide-react";
 
 export default function About() {
   const team = [
