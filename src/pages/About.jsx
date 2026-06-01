@@ -1,6 +1,7 @@
 import React from 'react';
 import { Sparkles } from "lucide-react";
 
+
 export default function About() {
   const team = [
     {
