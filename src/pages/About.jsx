@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 export default function About() {
   const team = [

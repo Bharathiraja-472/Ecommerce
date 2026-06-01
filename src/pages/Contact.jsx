@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Clock, ArrowRight, Check } from 'lucide-react';
+import {  Phone, MapPin, Clock, ArrowRight, Check } from 'lucide-react';
 
 export default function Contact() {
   const [name, setName] = useState('');
