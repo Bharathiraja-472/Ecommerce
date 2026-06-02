@@ -15,7 +15,7 @@ export default function Login() {
   const handleSocialLogin = (provider) => {
     setIsLoading(true);
     setTimeout(() => {
-      const result = socialLogin(provider);
+      socialLogin(provider);
       setIsLoading(false);
       alert(`Welcome Back to Velvora! Connected via ${provider}.`);
       navigate('/');

@@ -17,7 +17,7 @@ export default function SignUp() {
   const handleSocialLogin = (provider) => {
     setIsLoading(true);
     setTimeout(() => {
-      const result = socialLogin(provider);
+      socialLogin(provider);
       setIsLoading(false);
       alert(`Welcome to the Velvora Atelier! Registered and logged in via ${provider}.`);
       navigate('/');
