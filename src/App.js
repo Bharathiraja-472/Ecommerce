@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
+import { AuthProvider } from './context/AuthContext';
 
 // Pages imports
 import Home from './pages/Home';
@@ -36,7 +37,8 @@ function ScrollToTop() {
 
 export default function App() {
   return (
-    <CartProvider>
+    <AuthProvider>
+      <CartProvider>
       <Router>
         <ScrollToTop />
         <div className="flex flex-col min-h-screen bg-luxury-sand/15 text-luxury-black font-sans selection:bg-luxury-gold selection:text-white">
@@ -71,5 +73,6 @@ export default function App() {
         </div>
       </Router>
     </CartProvider>
+    </AuthProvider>
   );
 }

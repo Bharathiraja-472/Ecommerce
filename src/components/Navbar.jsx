@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Search, ShoppingBag, User, Menu, X, ArrowRight } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 
 export default function Navbar() {
   const { isCartOpen, setIsCartOpen, getCartCount } = useCart();
+  const { currentUser, logout } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
@@ -28,6 +31,7 @@ export default function Navbar() {
   useEffect(() => {
     setIsMobileMenuOpen(false);
     setIsSearchOpen(false);
+    setIsUserMenuOpen(false);
   }, [location]);
 
   const navLinks = [
@@ -111,13 +115,42 @@ export default function Navbar() {
               </button>
 
               {/* Login / Profile Navigation */}
-              <Link
-                to="/login"
-                className="text-luxury-black hover:text-luxury-gold transition-colors duration-200"
-                aria-label="Go to login page"
-              >
-                <User className="w-5 h-5 stroke-[1.2]" />
-              </Link>
+              {currentUser ? (
+                <div className="relative">
+                  <button
+                    onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                    className="flex items-center text-luxury-black hover:text-luxury-gold transition-colors duration-200"
+                    aria-label="User profile menu"
+                  >
+                    <User className="w-5 h-5 stroke-[1.2]" />
+                    <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-luxury-gold rounded-full" />
+                  </button>
+                  {isUserMenuOpen && (
+                    <div className="absolute right-0 mt-3 w-48 bg-white border border-luxury-border shadow-md py-2 z-50 animate-scale-up">
+                      <div className="px-4 py-2 border-b border-luxury-border/60 text-[9px] uppercase tracking-luxury text-luxury-gray">
+                        Welcome, {currentUser.name.split(' ')[0]}
+                      </div>
+                      <button
+                        onClick={() => {
+                          logout();
+                          alert('Logged out from Atelier.');
+                        }}
+                        className="block w-full text-left px-4 py-2 text-[10px] uppercase tracking-luxury text-luxury-gold hover:bg-luxury-sand/40 hover:text-luxury-black transition font-semibold"
+                      >
+                        Sign Out
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Link
+                  to="/login"
+                  className="text-luxury-black hover:text-luxury-gold transition-colors duration-200"
+                  aria-label="Go to login page"
+                >
+                  <User className="w-5 h-5 stroke-[1.2]" />
+                </Link>
+              )}
 
               {/* Live Shopping Bag Drawer Toggle */}
               <button
@@ -217,13 +250,31 @@ export default function Navbar() {
             <p className="text-center text-[10px] uppercase tracking-luxury text-luxury-gray">
               Minimal Luxury Fashion Brand
             </p>
-            <div className="mt-4 flex justify-center space-x-4">
-              <Link
-                to="/login"
-                className="w-full text-center border border-luxury-black text-luxury-black py-2.5 text-xs uppercase tracking-luxury hover:bg-luxury-black hover:text-white transition-colors duration-300 font-medium"
-              >
-                Sign In
-              </Link>
+            <div className="mt-4 flex flex-col items-center gap-3">
+              {currentUser ? (
+                <>
+                  <span className="text-[11px] uppercase tracking-luxury text-luxury-black font-medium">
+                    Welcome, {currentUser.name}
+                  </span>
+                  <button
+                    onClick={() => {
+                      logout();
+                      setIsMobileMenuOpen(false);
+                      alert('Logged out from Atelier.');
+                    }}
+                    className="w-full text-center border border-luxury-gold text-luxury-gold py-2.5 text-xs uppercase tracking-luxury hover:bg-luxury-gold hover:text-white transition-colors duration-300 font-medium"
+                  >
+                    Sign Out
+                  </button>
+                </>
+              ) : (
+                <Link
+                  to="/login"
+                  className="w-full text-center border border-luxury-black text-luxury-black py-2.5 text-xs uppercase tracking-luxury hover:bg-luxury-black hover:text-white transition-colors duration-300 font-medium"
+                >
+                  Sign In
+                </Link>
+              )}
             </div>
           </div>
         </div>
